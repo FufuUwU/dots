@@ -1,7 +1,7 @@
 #!/bin/sh
 # calendar: show this month as a notification (the waybar clock's click).
 # Click the clock again to close it. Colors match the Moon palette:
-# month cyan, weekdays gold, today red.
+# month blue, weekdays violet, today rose.
 ID_FILE="${XDG_RUNTIME_DIR:-/tmp}/waybar-calendar.id"
 
 # Second click closes the open calendar
@@ -14,7 +14,7 @@ fi
 today=$(date +%-d)
 body=$(cal | awk -v t="$today" '
   NR == 1 { next }                                     # month title is added below
-  NR == 2 { printf "<span color=\"#E2C98A\"><b>%s</b></span>\n", $0; next }
+  NR == 2 { printf "<span color=\"#AA8FD0\"><b>%s</b></span>\n", $0; next }
   NF == 0 { next }
   {
     out = ""

@@ -1,5 +1,5 @@
 # Moon palette, sampled from sway/wallpaper.jpeg
-# Night indigo, moonlit petal blue, lavender, pale gold trim, moon white.
+# Night indigo, moonlit petal blue, hair violet, pale gold trim, moon white.
 # Every themed app (waybar, kitty, fuzzel, mako, gtklock, swaylock, omp)
 # uses these same hex values.
 
@@ -32,7 +32,10 @@ set $scarlet  #E06A8Eff
 set $wine     #4A1A35ff
 set $rose     #BDAADEff
 
-# Pale gold trim (highlights and warnings)
+# Hair violet (highlights)
+set $violet   #AA8FD0ff
+
+# Pale gold trim (warnings and status)
 set $gold     #E2C98Aff
 set $yellow   #F0D98Cff
 set $amber    #E8A87Cff

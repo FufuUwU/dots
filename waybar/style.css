@@ -12,6 +12,7 @@
 @define-color crimson  #C8406A;
 @define-color scarlet  #E06A8E;
 @define-color rose     #BDAADE;
+@define-color violet   #AA8FD0;
 @define-color gold     #E2C98A;
 @define-color yellow   #F0D98C;
 @define-color amber    #E8A87C;
@@ -104,8 +105,8 @@ tooltip {
 
 #workspaces button.focused {
   color: @base;
-  background: @glow;
-  box-shadow: 0 0 10px alpha(@glow, 0.75);
+  background: @violet;
+  box-shadow: 0 0 10px alpha(@violet, 0.75);
 }
 
 #workspaces button.urgent {

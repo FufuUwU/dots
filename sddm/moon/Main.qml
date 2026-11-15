@@ -21,6 +21,7 @@ Rectangle {
         readonly property color text:    "#DBE2F2"
         readonly property color glow:    "#90CDF6"
         readonly property color frost:   "#CFE9FB"
+        readonly property color violet:  "#AA8FD0"
         readonly property color gold:    "#E2C98A"
         readonly property color amber:   "#E8A87C"
         readonly property color scarlet: "#E06A8E"
@@ -220,7 +221,7 @@ Rectangle {
             Text {
                 id: date
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: c.gold
+                color: c.violet
                 font { family: root.fontName; pixelSize: 18 }
                 text: Qt.formatDateTime(new Date(), "dddd, dd MMMM")
             }

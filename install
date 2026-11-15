@@ -28,7 +28,7 @@ Everything is copied, so a clone can be deleted afterwards.
 EOF
 }
 
-# Moon colours: glow cyan, gold, subtext grey
+# Moon colours: petal blue, gold, periwinkle grey
 banner() {
   local glow=$'\e[1;38;2;144;205;246m'
   local gold=$'\e[38;2;226;201;138m'
@@ -36,7 +36,7 @@ banner() {
   local off=$'\e[0m'
 
   printf '\n'
-  printf '  %sMoon Dots%s - A theme inspired by Sandrone\n' "$glow" "$off"
+  printf '  %sMoon Dots%s - A theme inspired by Columbina\n' "$glow" "$off"
   printf '  %sby Clove Twilight (doughmination)%s\n' "$gold" "$off"
   printf '  %s%s%s\n' "$muted" "https://github.com/doughmination/moon-dots" "$off"
   printf '\n'

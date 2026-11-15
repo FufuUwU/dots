@@ -23,7 +23,7 @@ cd moon-dots
 ./install
 ```
 
-The installer runs five scripts, and you can run any of them on its own:
+The installer runs six scripts, and you can run any of them on its own:
 
 | Script | What it does |
 |---|---|

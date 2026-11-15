@@ -5,6 +5,7 @@
 @define-color frost   #CFE9FB;
 @define-color blue    #558AD5;
 @define-color crimson #E06A8E;
+@define-color violet  #AA8FD0;
 @define-color gold    #E2C98A;
 @define-color amber   #E8A87C;
 
@@ -49,7 +50,7 @@ window {
 
 #date-label {
   font-size: 18px;
-  color: @gold;
+  color: @violet;
   margin-bottom: 20px;
 }
 
@@ -98,7 +99,7 @@ window {
 
 #unlock-button label  { color: @bg; }   /* beat the "* { color }" rule */
 #unlock-button:hover  { background-color: @frost; }
-#unlock-button:active { background-color: @gold; }
+#unlock-button:active { background-color: @violet; }
 
 #error-label {                   /* wrong password */
   color: @crimson;
