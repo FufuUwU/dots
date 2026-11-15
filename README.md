@@ -18,8 +18,8 @@ A theme based off of Columbina "Damselette" Hyposelenia from Genshin Impact
 ## Install
 
 ```sh
-git clone https://github.com/doughmination/moon-dots
-cd moon-dots
+git clone https://github.com/doughmination/moonDots
+cd moonDots
 ./install
 ```
 
