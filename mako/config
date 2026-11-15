@@ -1,0 +1,42 @@
+# Moon palette, matches ~/.config/sway/moon
+font=JetBrainsMono Nerd Font 11
+background-color=#080C1CD9
+text-color=#DBE2F2
+border-color=#90CDF6
+progress-color=over #1C326D
+border-size=2
+border-radius=14
+padding=12
+outer-margin=12
+width=360
+max-visible=5
+max-history=50
+default-timeout=6000
+icons=1
+max-icon-size=48
+anchor=top-right
+layer=overlay
+format=<b>%s</b>\n%b
+
+[urgency=low]
+border-color=#4A5A85
+
+[urgency=critical]
+border-color=#E06A8E
+background-color=#4A1A35D9
+default-timeout=0
+
+[mode=do-not-disturb]
+invisible=1
+
+# The clock's calendar: body only (it carries its own title), tall enough for 6 weeks
+[app-name=calendar]
+format=%b
+height=320
+
+# ...and these are opened on purpose, so they show even in do-not-disturb
+[mode=do-not-disturb app-name=calendar]
+invisible=0
+
+[mode=do-not-disturb app-name=notifications]
+invisible=0

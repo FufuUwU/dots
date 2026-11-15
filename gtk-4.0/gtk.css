@@ -1,0 +1,34 @@
+/* Moon palette for GTK 4 / libadwaita apps, matches ~/.config/sway/moon */
+@define-color accent_color            #90CDF6;
+@define-color accent_bg_color         #2F8FB0;
+@define-color accent_fg_color         #080C1C;
+@define-color destructive_color       #E06A8E;
+@define-color destructive_bg_color    #C8406A;
+@define-color destructive_fg_color    #DBE2F2;
+@define-color success_color           #7FD1B9;
+@define-color warning_color           #E8A87C;
+@define-color error_color             #E06A8E;
+@define-color window_bg_color         #101830;
+@define-color window_fg_color         #DBE2F2;
+@define-color view_bg_color           #080C1C;
+@define-color view_fg_color           #DBE2F2;
+@define-color headerbar_bg_color      #080C1C;
+@define-color headerbar_fg_color      #DBE2F2;
+@define-color headerbar_backdrop_color #101830;
+@define-color sidebar_bg_color        #080C1C;
+@define-color sidebar_fg_color        #DBE2F2;
+@define-color card_bg_color           #18233F;
+@define-color card_fg_color           #DBE2F2;
+@define-color dialog_bg_color         #101830;
+@define-color dialog_fg_color         #DBE2F2;
+@define-color popover_bg_color        #18233F;
+@define-color popover_fg_color        #DBE2F2;
+
+/* Plain GTK 4 apps (no libadwaita) still read the old names */
+@define-color theme_bg_color          #101830;
+@define-color theme_fg_color          #DBE2F2;
+@define-color theme_base_color        #080C1C;
+@define-color theme_text_color        #DBE2F2;
+@define-color theme_selected_bg_color #90CDF6;
+@define-color theme_selected_fg_color #080C1C;
+@define-color borders                 #20304F;

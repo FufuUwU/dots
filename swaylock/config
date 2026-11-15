@@ -1,0 +1,53 @@
+# Moon palette, matches ~/.config/sway/moon
+daemonize
+ignore-empty-password
+show-failed-attempts
+indicator-caps-lock
+indicator-idle-visible
+hide-keyboard-layout
+
+# lock-screen passes a blurred copy of the wallpaper if imagemagick is installed;
+# this is the fallback
+image=~/.config/sway/background.png
+scaling=fill
+color=080C1C
+
+font=JetBrainsMono Nerd Font
+font-size=22
+indicator-radius=110
+indicator-thickness=9
+
+# Idle
+inside-color=080C1Ccc
+ring-color=90CDF6ff
+line-color=00000000
+separator-color=00000000
+text-color=DBE2F2ff
+key-hl-color=E2C98Aff
+bs-hl-color=E06A8Eff
+
+# Checking password
+inside-ver-color=080C1Ccc
+ring-ver-color=E2C98Aff
+line-ver-color=00000000
+text-ver-color=E2C98Aff
+
+# Wrong password
+inside-wrong-color=4A1A35cc
+ring-wrong-color=E06A8Eff
+line-wrong-color=00000000
+text-wrong-color=E06A8Eff
+
+# Cleared input
+inside-clear-color=080C1Ccc
+ring-clear-color=558AD5ff
+line-clear-color=00000000
+text-clear-color=558AD5ff
+
+# Caps lock on
+inside-caps-lock-color=080C1Ccc
+ring-caps-lock-color=E8A87Cff
+line-caps-lock-color=00000000
+text-caps-lock-color=E8A87Cff
+caps-lock-key-hl-color=E2C98Aff
+caps-lock-bs-hl-color=E06A8Eff

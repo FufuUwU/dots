@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+# install: full setup, run from inside a clone.
+#
+#   git clone https://github.com/doughmination/moon-dots && cd moon-dots && ./install
+#   ./install --dry-run
+
+set -uo pipefail
+
+usage() {
+  cat <<'EOF'
+install: full setup from this clone. Runs, in order:
+  1. install-deps.sh    software (packages, rust + hyfetch, oh-my-posh, flatpaks, services)
+  2. install-git.sh     git name, email and default branch
+  3. install-assets.sh  font and cursor themes
+  4. install-config.sh  copy configs into ~/.config, bashrc to ~/.bashrc
+  5. install-scripts.sh copy binaries/ into ~/.local/bin
+  6. install-sddm.sh    the Moon login screen
+
+  ./install
+  ./install --dry-run
+
+  --dry-run                     print every command without running anything
+  --no-flatpak, --no-services   passed through to install-deps.sh
+  --git-name=, --git-email=, --git-branch=, --defaults
+                                passed through to install-git.sh
+
+Everything is copied, so a clone can be deleted afterwards.
+EOF
+}
+
+# Moon colours: glow cyan, gold, subtext grey
+banner() {
+  local glow=$'\e[1;38;2;144;205;246m'
+  local gold=$'\e[38;2;226;201;138m'
+  local muted=$'\e[38;2;152;167;218m'
+  local off=$'\e[0m'
+
+  printf '\n'
+  printf '  %sMoon Dots%s - A theme inspired by Sandrone\n' "$glow" "$off"
+  printf '  %sby Clove Twilight (doughmination)%s\n' "$gold" "$off"
+  printf '  %s%s%s\n' "$muted" "https://github.com/doughmination/moon-dots" "$off"
+  printf '\n'
+}
+
+main() {
+  local ALL=()
+  local DEPS=()
+  local GIT=()
+  local PARTS=(
+    deps
+    git
+    assets
+    config
+    scripts
+    sddm
+  )
+
+  for arg in "$@"; do
+    case $arg in
+      --dry-run)                  ALL+=("$arg") ;;
+      --no-flatpak|--no-services) DEPS+=("$arg") ;;
+      --git-*=*|--defaults)       GIT+=("$arg") ;;
+      -h|--help) usage; exit 0 ;;
+      *) echo "Unknown option: $arg (try --help)"; exit 1 ;;
+    esac
+  done
+
+  banner
+
+  REPO=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+  if [ ! -f "$REPO/install-config.sh" ]; then
+    echo "Run this from inside a clone of the dots."
+    exit 1
+  fi
+
+  # Prompts (git name, sudo, package managers) read the terminal.
+  # No terminal at all means no prompts.
+  local input=/dev/null
+  if { : </dev/tty; } 2>/dev/null; then
+    input=/dev/tty
+  fi
+
+  local failed=()
+  local extra
+  for part in "${PARTS[@]}"; do
+    printf '\n\e[1;35m######## install-%s ########\e[0m\n' "$part"
+
+    extra=()
+    [ "$part" = deps ] && extra=("${DEPS[@]}")
+    [ "$part" = git ] && extra=("${GIT[@]}")
+
+    bash "$REPO/install-$part.sh" "${ALL[@]}" "${extra[@]}" <"$input" || failed+=("$part")
+  done
+
+  echo
+  if [ ${#failed[@]} -gt 0 ]; then
+    printf '\e[1;33mFinished, but these steps reported errors: %s\e[0m\n' "${failed[*]}"
+    exit 1
+  fi
+  printf '\e[1;32mAll done.\e[0m Log out and back in (or reboot) to start sway with everything.\n'
+}
+
+main "$@"

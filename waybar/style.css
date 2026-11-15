@@ -1,0 +1,192 @@
+/* Moon palette, matches ~/.config/sway/moon */
+@define-color base     #080C1C;
+@define-color surface0 #101830;
+@define-color surface2 #20304F;
+@define-color overlay1 #4A5A85;
+@define-color subtext0 #98A7DA;
+@define-color text     #DBE2F2;
+@define-color glow     #90CDF6;
+@define-color frost    #CFE9FB;
+@define-color sky      #74ABEB;
+@define-color blue     #558AD5;
+@define-color crimson  #C8406A;
+@define-color scarlet  #E06A8E;
+@define-color rose     #BDAADE;
+@define-color gold     #E2C98A;
+@define-color yellow   #F0D98C;
+@define-color amber    #E8A87C;
+@define-color peach    #F2D4C2;
+@define-color jade     #7FD1B9;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Adwaita Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+}
+
+window#waybar {
+  background: alpha(@base, 0.50);
+  border: 1px solid alpha(@glow, 0.55);
+  border-radius: 16px;
+  color: @text;
+}
+
+window#waybar > box { padding: 0 4px; }
+
+tooltip {
+  background: alpha(@base, 0.94);
+  border: 1px solid alpha(@glow, 0.7);
+  border-radius: 10px;
+}
+
+/* Every module is its own glass pill */
+#custom-launcher,
+#custom-decor,
+#workspaces,
+#mode,
+#scratchpad,
+#mpris,
+#clock,
+#custom-recording,
+#custom-updates,
+#idle_inhibitor,
+#custom-nightlight,
+#custom-dnd,
+#memory,
+#cpu,
+#wireplumber,
+#backlight,
+#network,
+#bluetooth,
+#custom-battery,
+#tray,
+#custom-power {
+  background: alpha(@surface0, 0.72);
+  border: 1px solid alpha(@overlay1, 0.55);
+  border-radius: 12px;
+  padding: 0 12px;
+  margin: 2px 0;
+}
+
+/* Distro logo; its brand color comes from scripts/distro-icon */
+#custom-launcher {
+  font-size: 17px;
+}
+
+/* Wallpaper toggle: crimson picture = still, cyan play = animated */
+#custom-decor {
+  font-size: 15px;
+  border-color: alpha(@crimson, 0.55);
+}
+#custom-decor.animated { border-color: alpha(@glow, 0.55); }
+#custom-decor.paused   { border-color: alpha(@amber, 0.55); }
+#custom-decor:hover    { background: alpha(@surface2, 0.95); }
+
+#workspaces { padding: 0 4px; }
+
+#workspaces button {
+  color: @overlay1;
+  background: transparent;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 8px;
+  transition: all 150ms ease;
+}
+
+#workspaces button:hover {
+  color: @text;
+  background: alpha(@surface2, 0.9);
+  box-shadow: none;
+}
+
+#workspaces button.focused {
+  color: @base;
+  background: @glow;
+  box-shadow: 0 0 10px alpha(@glow, 0.75);
+}
+
+#workspaces button.urgent {
+  color: @text;
+  background: @crimson;
+}
+
+#mode {
+  color: @base;
+  background: @gold;
+}
+
+#scratchpad { color: @rose; }
+#mpris      { color: @peach; }
+
+#clock {
+  color: @glow;
+  border-color: alpha(@glow, 0.55);
+}
+
+/* Quick toggles: dim when off, lit when on */
+#idle_inhibitor,
+#custom-nightlight,
+#custom-dnd                  { color: @subtext0; }
+#idle_inhibitor.activated    { color: @peach;  border-color: alpha(@peach, 0.55); }
+#custom-nightlight.on        { color: @amber;  border-color: alpha(@amber, 0.55); }
+#custom-dnd.on               { color: @rose;   border-color: alpha(@rose, 0.55); }
+
+#custom-updates   { color: @gold; }
+
+@keyframes rec-pulse {
+  to { background: alpha(@crimson, 0.35); }
+}
+#custom-recording {
+  color: @text;
+  background: @crimson;
+  border-color: @scarlet;
+  animation: rec-pulse 1s ease-in-out infinite alternate;
+}
+
+#memory               { color: @frost; }
+#cpu                  { color: @sky; }
+#memory.warning,
+#cpu.warning          { color: @yellow; }
+#memory.critical,
+#cpu.critical         { color: @scarlet; }
+#wireplumber          { color: @rose; }
+#wireplumber.muted    { color: @overlay1; }
+#backlight            { color: @peach; }
+#network              { color: @glow; }
+#network.disconnected,
+#network.disabled     { color: @overlay1; }
+#network.linked       { color: @amber; }
+#bluetooth            { color: @blue; }
+#bluetooth.off,
+#bluetooth.disabled   { color: @overlay1; }
+
+#custom-battery             { color: @jade; }
+#custom-battery.charging,
+#custom-battery.plugged     { color: @frost; }
+#custom-battery.warning     { color: @yellow; }
+#custom-battery.powersave   { color: @amber; border-color: alpha(@amber, 0.55); }
+#custom-battery.performance { color: @rose;  border-color: alpha(@rose, 0.55); }
+
+@keyframes blink {
+  to { background: @crimson; color: @text; }
+}
+
+#custom-battery.critical {
+  color: @scarlet;
+  animation: blink 1s steps(2) infinite alternate;
+}
+
+#tray > .needs-attention { background: alpha(@crimson, 0.6); }
+
+#custom-power {
+  color: @scarlet;
+  font-size: 15px;
+}
+
+#custom-power:hover,
+#custom-launcher:hover {
+  background: alpha(@surface2, 0.95);
+}

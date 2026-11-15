@@ -1,0 +1,34 @@
+# Allow-list: ignore everything, opt files back in. install-config.sh copies
+# every !/entry below into ~/.config, except the repo's own files and assets.
+/*
+!/.gitignore
+!/.github/
+!/README.md
+!/LICENSE
+!/screenshot.png
+!/install*
+!/bashrc
+!/binaries/
+!/icons/
+!/sddm/
+!/btop/
+!/fuzzel/
+!/gtk-3.0/
+!/gtk-4.0/
+!/gtklock/
+!/gtkrc
+!/gtkrc-2.0
+!/hyfetch.json
+!/kitty/
+!/mako/
+!/omp/
+!/sway/
+!/swaylock/
+!/waybar/
+!/xsettingsd/
+
+*.bak*
+*.swp
+*~
+/gtk-3.0/bookmarks
+/btop/btop.log

@@ -1,0 +1,181 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
+  "spacing": 6,
+  "reload_style_on_change": true,
+
+  "modules-left": ["custom/launcher", "custom/decor", "sway/workspaces", "sway/mode", "sway/scratchpad", "mpris"],
+  "modules-center": [],
+  "modules-right": ["custom/recording", "custom/updates", "idle_inhibitor", "custom/nightlight", "custom/dnd", "memory", "cpu", "wireplumber", "backlight", "network", "bluetooth", "custom/battery", "tray", "clock", "custom/power"],
+
+  "custom/launcher": {
+    "exec": "~/.config/waybar/scripts/distro-icon",
+    "return-type": "json",
+    "interval": "once",
+    "format": "{}",
+    "on-click": "fuzzel"
+  },
+
+  "custom/decor": {
+    "exec": "~/.local/bin/wallpaper status",
+    "return-type": "json",
+    "interval": "once",
+    "signal": 9,
+    "on-click": "~/.local/bin/wallpaper toggle"
+  },
+
+  "sway/workspaces": {
+    "all-outputs": true,
+    "format": "{name}"
+  },
+
+  "sway/mode": {
+    "format": "󰩨 {}"
+  },
+
+  "sway/scratchpad": {
+    "format": "󰖲 {count}",
+    "show-empty": false,
+    "tooltip-format": "{app}: {title}"
+  },
+
+  "mpris": {
+    "format": "{status_icon} {dynamic}",
+    "dynamic-order": ["title", "artist"],
+    "dynamic-len": 40,
+    "status-icons": { "playing": "󰏤", "paused": "󰐊", "stopped": "󰓛" },
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+
+  "clock": {
+    "format": "{:%a %d %b  %H:%M}",
+    "tooltip": false,
+    "on-click": "~/.local/bin/calendar"
+  },
+
+  "custom/recording": {
+    "exec": "~/.local/bin/recording-status",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 11,
+    "on-click": "~/.local/bin/screenshot -r"
+  },
+
+  "custom/updates": {
+    "exec": "~/.local/bin/updates status",
+    "return-type": "json",
+    "interval": 3600,
+    "signal": 13,
+    "on-click": "~/.local/bin/updates run"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": { "activated": "󰅶", "deactivated": "󰾪" },
+    "tooltip-format-activated": "Staying awake (no auto-lock)\nClick to allow locking",
+    "tooltip-format-deactivated": "Auto-lock after 5 min\nClick to stay awake"
+  },
+
+  "custom/nightlight": {
+    "exec": "~/.local/bin/nightlight status",
+    "return-type": "json",
+    "interval": "once",
+    "signal": 12,
+    "on-click": "~/.local/bin/nightlight toggle"
+  },
+
+  "custom/dnd": {
+    "exec": "~/.local/bin/dnd status",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 10,
+    "on-click": "~/.local/bin/notifications",
+    "on-click-right": "~/.local/bin/dnd toggle"
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "󰍛 {percentage}%",
+    "tooltip-format": "RAM {used:0.1f} / {total:0.1f} GiB\nSwap {swapUsed:0.1f} / {swapTotal:0.1f} GiB",
+    "states": { "warning": 75, "critical": 90 },
+    "on-click": "kitty -e btop"
+  },
+
+  "cpu": {
+    "interval": 3,
+    "format": "󰻠 {usage}%",
+    "states": { "warning": 75, "critical": 90 },
+    "on-click": "kitty -e btop"
+  },
+
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+    "scroll-step": 5,
+    "max-volume": 100,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-middle": "pavucontrol"
+  },
+
+  "backlight": {
+    "device": "amdgpu_bl0",
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-click": "[ $(brightnessctl -m | cut -d, -f4 | tr -d %) -le 15 ] && brightnessctl -q s 100% || brightnessctl -q s 15%",
+    "on-scroll-up": "brightnessctl -q s 5%+",
+    "on-scroll-down": "brightnessctl -q s 5%-"
+  },
+
+  "network": {
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "󰈀 wired",
+    "format-disconnected": "󰤭 offline",
+    "format-disabled": "\udb81\uddaa wifi off",
+    "format-linked": "\udb82\udd2b {essid} (no IP)",
+    "tooltip-format-disabled": "Wi-Fi is off\nClick to turn it on",
+    "tooltip-format-disconnected": "Not connected\nClick to turn Wi-Fi off · Right-click for nmtui",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}\n {bandwidthDownBytes}   {bandwidthUpBytes}",
+    "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+    "on-click": "~/.local/bin/net-toggle",
+    "on-click-right": "kitty -e nmtui"
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-off": "󰂲",
+    "format-disabled": "",
+    "format-connected": "󰂱 {device_alias}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "~/.local/bin/bt-toggle",
+    "on-click-middle": "kitty -e bluetui"
+  },
+
+  "custom/battery": {
+    "exec": "~/.local/bin/waybar-battery",
+    "return-type": "json",
+    "interval": 30,
+    "signal": 8,
+    "on-click": "~/.local/bin/waybar-battery saver",
+    "on-click-right": "~/.local/bin/waybar-battery performance",
+    "on-click-middle": "~/.local/bin/waybar-battery menu"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  },
+
+  "custom/power": {
+    "format": "󰐥",
+    "tooltip": false,
+    "on-click": "~/.local/bin/powermenu"
+  }
+}

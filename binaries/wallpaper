@@ -1,0 +1,73 @@
+#!/bin/sh
+# wallpaper: switch between the still and the animated wallpaper.
+#
+#   wallpaper toggle    flip static <-> animated (the waybar decor button)
+#   wallpaper static    still image only
+#   wallpaper animated  play sway/background.webm on top of the still
+#   wallpaper restore   start whichever mode was last chosen (run at login)
+#   wallpaper sync      play/stop the video to match power (run by waybar-battery)
+#   wallpaper status    JSON for the waybar button
+#
+# Animated mode plays on AC or battery, but pauses in power-saver or when the
+# battery is discharging at 20% or less; then the still shows and the button
+# turns amber ("paused").
+#
+# The still (sway/config "output * bg") always runs underneath, so stopping
+# the video just reveals it. mpvpaper pauses itself while windows cover it.
+
+VIDEO="$HOME/.config/sway/background.webm"
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/wallpaper-mode"
+
+mode() { cat "$STATE" 2>/dev/null || echo static; }
+save() { mkdir -p "$(dirname "$STATE")"; echo "$1" > "$STATE"; }
+refresh() { pkill -RTMIN+9 -x waybar; }
+
+# Should the video run right now? Not in power-saver, and no battery
+# discharging at or below LOW percent.
+LOW=20
+power_ok() {
+  [ "$(powerprofilesctl get 2>/dev/null)" != power-saver ] || return 1
+  for b in /sys/class/power_supply/BAT*; do
+    [ -r "$b/capacity" ] || continue
+    [ "$(cat "$b/status")" = Discharging ] && [ "$(cat "$b/capacity")" -le "$LOW" ] && return 1
+  done
+  return 0
+}
+
+start_video() {
+  pgrep -x mpvpaper >/dev/null && return 0
+  if ! command -v mpvpaper >/dev/null; then
+    notify-send "Animated wallpaper" "mpvpaper isn't installed (run install-deps.sh)"
+    return 1
+  fi
+  [ -f "$VIDEO" ] || { notify-send "Animated wallpaper" "Missing $VIDEO"; return 1; }
+  setsid -f mpvpaper -p -o "no-audio loop hwdec=auto panscan=1.0" '*' "$VIDEO" \
+    >/dev/null 2>&1
+}
+
+case ${1:-status} in
+  static)   pkill -x mpvpaper; save static; refresh ;;
+  animated)
+    save animated
+    if power_ok; then start_video || save static
+    else notify-send "Animated wallpaper" "Paused: power-saver is on, or the battery is at ${LOW}% or less"
+    fi
+    refresh ;;
+  toggle)   if [ "$(mode)" = animated ]; then "$0" static; else "$0" animated; fi ;;
+  restore)  [ "$(mode)" = animated ] && power_ok && start_video ;;
+  sync)
+    [ "$(mode)" = animated ] && command -v mpvpaper >/dev/null || exit 0
+    running=0; pgrep -x mpvpaper >/dev/null && running=1
+    if power_ok; then [ "$running" = 1 ] || { start_video; refresh; }
+    else [ "$running" = 0 ] || { pkill -x mpvpaper; refresh; }
+    fi ;;
+  status)
+    if [ "$(mode)" = animated ] && ! pgrep -x mpvpaper >/dev/null; then
+      printf '{"text":"<span color=\\"#E8A87C\\">\\udb82\\udd3a</span>","tooltip":"Animated wallpaper paused (power-saver, or battery at 20%% or less)\\nClick for the still","class":"paused"}\n'
+    elif [ "$(mode)" = animated ]; then
+      printf '{"text":"<span color=\\"#90CDF6\\">\\udb82\\udd3a</span>","tooltip":"Animated wallpaper (click for still)","class":"animated"}\n'
+    else
+      printf '{"text":"<span color=\\"#E06A8E\\">\\udb80\\udee9</span>","tooltip":"Still wallpaper (click to animate)","class":"static"}\n'
+    fi ;;
+  *) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+esac

@@ -1,0 +1,113 @@
+/* Moon palette, matches ~/.config/sway/moon and swaylock config */
+@define-color bg      #080C1C;
+@define-color fg      #DBE2F2;
+@define-color glow    #90CDF6;
+@define-color frost   #CFE9FB;
+@define-color blue    #558AD5;
+@define-color crimson #E06A8E;
+@define-color gold    #E2C98A;
+@define-color amber   #E8A87C;
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  color: @fg;
+}
+
+window {
+  background-color: @bg;
+  background-size: cover;
+  background-position: center;
+}
+
+#window-box {
+  padding: 36px 48px;
+  border-radius: 14px;
+  border: 2px solid @glow;
+  background-color: alpha(@bg, 0.80);
+  box-shadow: 0 0 24px alpha(@glow, 0.45);
+}
+
+/* Round avatar above the clock (avatar.png next to this file; layout.ui adds the box) */
+#avatar {
+  min-width: 112px;
+  min-height: 112px;
+  margin-bottom: 14px;
+  background-image: url("avatar.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid @glow;
+  box-shadow: 0 0 16px alpha(@glow, 0.45);
+}
+
+#clock-label {
+  font-size: 72px;
+  font-weight: bold;
+  color: @frost;
+  text-shadow: 0 0 12px alpha(@frost, 0.6);
+}
+
+#date-label {
+  font-size: 18px;
+  color: @gold;
+  margin-bottom: 20px;
+}
+
+#input-label {
+  font-size: 16px;
+  color: @glow;
+  margin-right: 8px;
+}
+
+/* The password box: shows a dot per typed character */
+#input-field {
+  min-width: 300px;
+  min-height: 40px;
+  padding: 4px 14px;
+  font-size: 20px;
+  color: @frost;
+  caret-color: @glow;
+  background-color: alpha(@bg, 0.9);
+  background-image: none;
+  border: 2px solid @blue;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+#input-field:focus {
+  border-color: @frost;
+  box-shadow: 0 0 10px alpha(@frost, 0.5);
+}
+
+#input-field:disabled {          /* while checking the password */
+  border-color: @gold;
+  color: @gold;
+}
+
+#unlock-button {
+  margin-left: 8px;
+  padding: 4px 16px;
+  font-weight: bold;
+  color: @bg;
+  background-image: none;
+  background-color: @glow;
+  border: none;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+#unlock-button label  { color: @bg; }   /* beat the "* { color }" rule */
+#unlock-button:hover  { background-color: @frost; }
+#unlock-button:active { background-color: @gold; }
+
+#error-label {                   /* wrong password */
+  color: @crimson;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#warning-label {                 /* caps lock */
+  color: @amber;
+  font-weight: bold;
+  margin-top: 10px;
+}

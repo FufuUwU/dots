@@ -1,0 +1,22 @@
+/* Moon palette for GTK 3 apps (Adwaita-dark), matches ~/.config/sway/moon */
+@define-color theme_bg_color            #101830;
+@define-color theme_fg_color            #DBE2F2;
+@define-color theme_base_color          #080C1C;
+@define-color theme_text_color          #DBE2F2;
+@define-color theme_selected_bg_color   #90CDF6;
+@define-color theme_selected_fg_color   #080C1C;
+@define-color insensitive_bg_color      #101830;
+@define-color insensitive_fg_color      #6B78A3;
+@define-color insensitive_base_color    #080C1C;
+@define-color theme_unfocused_bg_color  #101830;
+@define-color theme_unfocused_fg_color  #B8C4E6;
+@define-color theme_unfocused_base_color #080C1C;
+@define-color borders                   #20304F;
+@define-color unfocused_borders         #20304F;
+@define-color warning_color             #E8A87C;
+@define-color error_color               #E06A8E;
+@define-color success_color             #7FD1B9;
+
+/* Adwaita draws these with hard-coded colors, so restate them */
+headerbar, .titlebar { background: #080C1C; color: #DBE2F2; border-color: #20304F; box-shadow: none; }
+selection, *:selected { background-color: alpha(#90CDF6, 0.85); color: #080C1C; }
