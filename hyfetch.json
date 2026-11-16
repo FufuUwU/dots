@@ -1,18 +1,14 @@
 {
-    "preset": "transbian",
+    "preset": "lesbian",
     "mode": "rgb",
     "auto_detect_light_dark": true,
     "light_dark": "dark",
-    "lightness": 0.69,
+    "lightness": 0.5,
     "color_align": {
         "mode": "horizontal"
     },
     "backend": "fastfetch",
     "args": null,
     "distro": null,
-    "pride_month_disable": false,
-    "custom_ascii_path": null,
-    "custom_presets": null,
-    "palette_glyph": null,
-    "palette_type": null
+    "pride_month_disable": false
 }

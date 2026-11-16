@@ -33,6 +33,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# aliases
+alias batlv='upower -i "$(upower -e | grep BAT)"'
+alias epkg='emerge -av --getbinpkg --usepkg --ask'
+alias sudo='sudo '
+alias bashreload='source ~/.bashrc'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
